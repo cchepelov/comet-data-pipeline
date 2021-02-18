@@ -101,7 +101,7 @@ object Common {
 object Versions {
   val sparkAvro = "4.0.0"
   val curator = "2.6.0"
-  val spark2d4 = "2.4.7"
+  val spark2d4 = "2.3.3"
   val spark3d0 = "3.1.0"
   val scalatest = "3.2.3"
   val sparXML211 = "0.11.0"
@@ -114,7 +114,7 @@ object Versions {
   val hive = "3.1.0"
   val log4s = "1.3.3"
   val betterFiles = "3.9.1"
-  val jackson211 = "2.7.9"
+  val jackson211 = "2.6.7"
   val jackson212 = "2.9.10"
   val jackson312 = "2.10.0"
   val configs = "0.4.4"

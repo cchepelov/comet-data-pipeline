@@ -49,34 +49,22 @@ object Dependencies {
   val typedConfigs = Seq("com.github.kxbmap" %% "configs" % Versions.configs)
 
   val jackson211 = Seq(
-    "com.fasterxml.jackson.core" % "jackson-core" % Versions.jackson211,
-    "com.fasterxml.jackson.core" % "jackson-annotations" % Versions.jackson211,
-    "com.fasterxml.jackson.core" % "jackson-databind" % Versions.jackson211,
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % Versions.jackson211,
     "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % Versions.jackson211
   )
 
   val jackson212 = Seq(
-    "com.fasterxml.jackson.core" % "jackson-core" % Versions.jackson212,
-    "com.fasterxml.jackson.core" % "jackson-annotations" % Versions.jackson212,
-    "com.fasterxml.jackson.core" % "jackson-databind" % Versions.jackson212,
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % Versions.jackson212,
     "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % Versions.jackson212
   )
 
   val jackson312 = Seq(
-    "com.fasterxml.jackson.core" % "jackson-core" % Versions.jackson312,
-    "com.fasterxml.jackson.core" % "jackson-annotations" % Versions.jackson312,
-    "com.fasterxml.jackson.core" % "jackson-databind" % Versions.jackson312,
-    "com.fasterxml.jackson.module" %% "jackson-module-scala" % Versions.jackson312,
     "com.fasterxml.jackson.dataformat" % "jackson-dataformat-yaml" % Versions.jackson312
   )
 
   val spark_2d4_forScala_2d11 = Seq(
-    "org.apache.spark" %% "spark-core" % Versions.spark2d4 % "provided" excludeAll (jacksonExclusions: _*) exclude ("com.google.guava", "guava"),
-    "org.apache.spark" %% "spark-sql" % Versions.spark2d4 % "provided" excludeAll (jacksonExclusions: _*) exclude ("com.google.guava", "guava"),
-    "org.apache.spark" %% "spark-hive" % Versions.spark2d4 % "provided" excludeAll (jacksonExclusions: _*) exclude ("com.google.guava", "guava"),
-    "org.apache.spark" %% "spark-mllib" % Versions.spark2d4 % "provided" excludeAll (jacksonExclusions: _*) exclude ("com.google.guava", "guava"),
+    "org.apache.spark" %% "spark-core" % Versions.spark2d4 % "provided"exclude ("com.google.guava", "guava"),
+    "org.apache.spark" %% "spark-sql" % Versions.spark2d4 % "provided" exclude ("com.google.guava", "guava"),
+    "org.apache.spark" %% "spark-hive" % Versions.spark2d4 % "provided" exclude ("com.google.guava", "guava"),
+    "org.apache.spark" %% "spark-mllib" % Versions.spark2d4 % "provided" exclude ("com.google.guava", "guava"),
     "com.databricks" %% "spark-xml" % Versions.sparXML211,
     "org.apache.spark" %% "spark-sql-kafka-0-10" % Versions.spark2d4
   )
@@ -116,7 +104,7 @@ object Dependencies {
 
   val esHadoop = Seq(
     "org.elasticsearch" % "elasticsearch-hadoop" % Versions.esHadoop exclude ("com.google.guava", "guava") excludeAll (jacksonExclusions: _*),
-    "com.dimafeng" %% "testcontainers-scala-elasticsearch" % Versions.testContainers % Test
+    "com.dimafeng" %% "testcontainers-scala-elasticsearch" % Versions.testContainers % Test excludeAll (jacksonExclusions: _*)
   )
 
   val scopt = Seq(
@@ -172,8 +160,8 @@ object Dependencies {
 
   val kafkaClients = Seq(
     "org.apache.kafka" % "kafka-clients" % Versions.kafkaClients,
-    "com.dimafeng" %% "testcontainers-scala-scalatest" % Versions.testContainers % Test,
-    "com.dimafeng" %% "testcontainers-scala-kafka" % Versions.testContainers % Test
+    "com.dimafeng" %% "testcontainers-scala-scalatest" % Versions.testContainers % Test excludeAll (jacksonExclusions: _*) ,
+    "com.dimafeng" %% "testcontainers-scala-kafka" % Versions.testContainers % Test excludeAll (jacksonExclusions: _*)
   )
 
   val dependencies =

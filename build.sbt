@@ -12,6 +12,11 @@ initialize := {
     sys.error("Java 1.8 is required for this project. Found " + javaVersion + " instead")
 }
 
+Test / fullClasspath := {
+  val existing = (Test / fullClasspath).value
+  println(s"Here's the existing Test/fullClasspath: ${existing.seq.map(_.toString).mkString("\n  -","\n  -","")}")
+  existing
+}
 useCoursier := true
 
 import scala.util.matching.Regex
@@ -47,21 +52,31 @@ scalaVersion := scala211
 organizationHomepage := Some(url("http://www.ebiznext.com"))
 
 libraryDependencies ++= {
-  val (spark, jackson) = {
+  val (spark, hadoop, hadoopForTesting, jackson, gcp) = {
     System.out.println(s"sparkMajor=$sparkMajor")
     sparkMajor match {
       case "3" =>
-        (spark_3d0_forScala_2d12, jackson312)
+        (spark_3d0_forScala_2d12, hadoop_for_spark_3d0, hadoop_3d2_for_spark_3d0, jackson312, gcp_for_spark_3d0)
       case "2" =>
         CrossVersion.partialVersion(scalaVersion.value) match {
-          case Some((2, 12)) => (spark_2d4_forScala_2d12, jackson212)
-          case Some((2, 11)) => (spark_2d4_forScala_2d11, jackson211)
+          case Some((2, 12)) => (spark_2d4_forScala_2d12, hadoop_for_spark_2d4, hadoop_2d7_for_spark_2d4, jackson212, gcp_for_spark_2d4)
+          case Some((2, 11)) => (spark_2d4_forScala_2d11, hadoop_for_spark_2d4, hadoop_2d7_for_spark_2d4, jackson211, gcp_for_spark_2d4)
           case _ => throw new Exception(s"Invalid Scala Version $scalaVersion")
         }
       case _   => throw new Exception(s"Invalid Spark Major Version $sparkMajor")
     }
   }
-  dependencies ++ spark ++ jackson ++ scalaReflection(scalaVersion.value)
+
+  val sparkForTesting = spark.map { m =>
+    m.withConfigurations(Some(Test.name))
+    /* Normally, "provided" are mapped into "testing" automatically, but there are difficult scenarios
+     * in the Scala 2.11 x Spark 2.4 case with respect to the Jackson library.  */
+  }
+
+  // FIXME: hadoop & hadoopForTesting are probably redundant af
+
+  dependencies ++ spark ++ jackson ++ scalaReflection(scalaVersion.value) ++
+    hadoop ++ sparkForTesting ++ hadoopForTesting ++ gcp
 }
 
 name := s"comet-spark${sparkMajor}"

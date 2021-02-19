@@ -101,8 +101,17 @@ object Common {
 object Versions {
   val sparkAvro = "4.0.0"
   val curator = "2.6.0"
-  val spark2d4 = "2.3.3"
+
+  val spark2d4 = "2.3.4"
+  val hadoopForSpark2d4 = "2.7.3" // should track the version of hadoop "provided" by spark2d4
+  val gcsForSpark2d4 = "hadoop2-2.2.0"
+  val hadoopbqForSpark2d4 = "hadoop2-1.0.0"
+
   val spark3d0 = "3.1.0"
+  val hadoopForSpark3d0 = "3.2.0" // should track the version of hadoop "provided" by spark3d0
+  val gcsForSpark3d0 = "hadoop3-2.2.0"
+  val hadoopbqForSpark3d0 = "hadoop3-1.0.0"
+
   val scalatest = "3.2.3"
   val sparXML211 = "0.11.0"
   val sparXML212 = "0.11.0"
@@ -121,10 +130,8 @@ object Versions {
   val esHadoop = "7.8.1"
   val scopt = "4.0.0"
   val sttp = "1.7.2"
-  val gcs = "hadoop3-2.2.0"
-  val hadoopbq = "hadoop3-1.0.0"
+
   val bq = "1.120.0"
-  val hadoop = "3.3.0"
   val h2 = "1.4.200" // Test only
   val poi = "4.1.2"
   val scalate = "1.9.6"
@@ -133,6 +140,7 @@ object Versions {
   val akkaStream = "2.5.32"
   val kafkaClients = "2.7.0"
   val testContainers = "0.39.0"
+  val dockerJavaApi = "3.2.7"
 }
 
 object Resolvers {
